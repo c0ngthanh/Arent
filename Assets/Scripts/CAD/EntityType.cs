@@ -45,6 +45,7 @@ namespace Chiyoda.CAD.Model
       RestrictorPlate,
       Instrument,
       ControlValve,
+      ActuatorControlValve,
       PressureReliefValve,
       GraduatedControlValve,
       InstrumentAngleControlValve,

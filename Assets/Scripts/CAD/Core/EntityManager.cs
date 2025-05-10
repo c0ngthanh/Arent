@@ -149,7 +149,7 @@ namespace Chiyoda.CAD.Core
           if ( _generators.ContainsKey( entityTypeInt ) ) continue;
 
           _generators.Add( entityTypeInt, generator );
-        }
+        } 
       }
     }
 

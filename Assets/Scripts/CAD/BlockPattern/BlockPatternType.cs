@@ -27,7 +27,8 @@ namespace Chiyoda.CAD.BP
       Idf,
       Filter,
       PressureReliefValve,
-      ControlValve
+      ControlValve,
+      ActuatorControlValve
     }
 
     public static Type Parse(string typeStr)

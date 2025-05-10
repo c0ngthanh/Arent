@@ -46,6 +46,8 @@ namespace Importer.Equipment
           return new PressureReliefValveTableImporter( dataSet ) ;
         case BlockPatternType.Type.ControlValve:
           return new ControlValveTableImporter( dataSet );
+        case BlockPatternType.Type.ActuatorControlValve:
+          return new ActuatorControlValveTableImporter( dataSet );
       }
 
       return null ;
