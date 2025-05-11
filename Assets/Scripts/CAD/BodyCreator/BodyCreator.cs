@@ -6,6 +6,7 @@ using UnityEngine;
 
 using Chiyoda.CAD.Core;
 using Chiyoda.CAD.Model;
+using System.Diagnostics;
 
 namespace Chiyoda.CAD.Body
 {
@@ -109,6 +110,7 @@ namespace Chiyoda.CAD.Body
       }      
 
       var gameObject = BodyPrefabAccessor.Instance().Create(entity);
+      UnityEngine.Debug.Log(gameObject);
       //if (null == gameObject) return null;
       if (null != gameObject)
       {

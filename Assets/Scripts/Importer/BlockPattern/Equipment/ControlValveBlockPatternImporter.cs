@@ -30,7 +30,7 @@ namespace Importer.BlockPattern.Equipment
     }
     public static void ActuatorImport(Action<Edge> onFinish)
     {
-      _dragging = ActualControlValveImport("CV001", onFinish);
+      _dragging = ActualControlValveImport("ACV001", onFinish);
     }
     /// <summary>
     /// 遷移の初期化
@@ -98,22 +98,23 @@ namespace Importer.BlockPattern.Equipment
     {
       var dataSet = PipingPieceDataSet.GetPipingPieceDataSet();
       var bp = BlockPatternFactory.CreateBlockPattern(BlockPatternType.Type.ActuatorControlValve);
+      Debug.Log("BP TYPE: " + bp.Type);
       var instrumentTable = PipingPieceTableFactory.Create(bp.Type, dataSet);
       var (instrument, origin, rot) = instrumentTable.Generate(bp.Document, id, createNozzle: true);
 
       var curDoc = DocumentCollection.Instance.Current ?? DocumentCollection.Instance.CreateNew();
 
-      // bp.LocalCod = new LocalCodSys3d(origin, rot, false);
-      // var leafEdge = curDoc.CreateEntity<LeafEdge>();
-      // leafEdge.PipingPiece = instrument as PipingPiece;
-      // LeafEdgeCodSysUtils.LocalizeCVComponent(leafEdge, Vector3d.zero, Vector3d.right, Vector3d.forward);
-      // bp.AddEdge(leafEdge);
-      // curDoc.CreateHalfVerticesAndMakePairs(leafEdge);
+      bp.LocalCod = new LocalCodSys3d(origin, rot, false);
+      var leafEdge = curDoc.CreateEntity<LeafEdge>();
+      leafEdge.PipingPiece = instrument as PipingPiece;
+      LeafEdgeCodSysUtils.LocalizeCVComponent(leafEdge, Vector3d.zero, Vector3d.right, Vector3d.forward);
+      bp.AddEdge(leafEdge);
+      curDoc.CreateHalfVerticesAndMakePairs(leafEdge);
 
-      // //暫定的に設定
-      // var vertices = leafEdge.Vertices.ToList();
-      // vertices[0].Flow = HalfVertex.FlowType.FromAnotherToThis;
-      // vertices[1].Flow = HalfVertex.FlowType.FromThisToAnother;
+      //暫定的に設定
+      var vertices = leafEdge.Vertices.ToList();
+      vertices[0].Flow = HalfVertex.FlowType.FromAnotherToThis;
+      vertices[1].Flow = HalfVertex.FlowType.FromThisToAnother;
 
       onFinish?.Invoke(bp);
       return bp;

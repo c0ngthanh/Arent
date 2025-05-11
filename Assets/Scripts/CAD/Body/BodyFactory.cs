@@ -97,6 +97,8 @@ namespace Chiyoda.CAD.Body
           return new InstrumentAngleControlValveBodyCreator(entity);
         case ControlValve _ :
           return new ControlValveBodyCreator(entity);
+        case ActuatorControlValve _ :
+          return new ActuatorControlValveBodyCreator(entity);
         case PressureReliefValve _ :
           return new PressureReliefValveBodyCreator(entity);
         case GraduatedControlValve _ :

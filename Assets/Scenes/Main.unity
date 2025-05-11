@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.40343276, g: 0.42427143, b: 0.42609176, a: 1}
+  m_IndirectSpecularColor: {r: 0.40343297, g: 0.4242717, b: 0.42609218, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26338,6 +26338,8 @@ MonoBehaviour:
   pressureGauge: {fileID: 100000, guid: 9100b0d4d4f7ec24382b50caaf0471b2, type: 3}
   restrictorPlate: {fileID: 100000, guid: 74dcd3022a52e204ea8ea73a6df1135d, type: 3}
   controlValve: {fileID: 1190070665062348, guid: 67647b63937f94d4a95d540992c6ebd1,
+    type: 3}
+  actuatorControlValve: {fileID: 1190070665062348, guid: 1adecfcb53831d2418abab23b3a5807f,
     type: 3}
   pressureReliefValve: {fileID: 1190070665062348, guid: 66ef823633afc427ebc243e707b98b9d,
     type: 3}

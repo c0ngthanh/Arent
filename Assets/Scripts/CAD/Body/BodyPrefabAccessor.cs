@@ -25,6 +25,8 @@ namespace Chiyoda.CAD.Body
     
     [SerializeField]
     GameObject controlValve = null;
+    [SerializeField]
+    GameObject actuatorControlValve = null;
 
     [SerializeField] 
     GameObject pressureReliefValve = null ;
@@ -143,7 +145,11 @@ namespace Chiyoda.CAD.Body
         case Instrument _ :
           return instrument;
         case ControlValve _ :
+        Debug.Log("ControlValve");
           return controlValve;
+        case ActuatorControlValve _ :
+        Debug.Log("ActuatorControlValve");
+          return actuatorControlValve;
         case PressureReliefValve _:
           return pressureReliefValve ;
         case GraduatedControlValve _ :
