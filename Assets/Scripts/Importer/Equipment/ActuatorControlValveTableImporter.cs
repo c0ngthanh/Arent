@@ -32,6 +32,8 @@ namespace Importer.Equipment
             valve.Diameter = double.Parse( cells[ 7 ] ) / 1000.0 ;
             valve.DiaphramLength = double.Parse( cells[ 8 ] ) / 1000.0 ;
             valve.DiaphramDiameter = double.Parse( cells[ 9 ] ) / 1000.0 ;
+            valve.A_Length = double.Parse( cells[ 10 ] ) / 1000.0 ;
+            valve.D_Size = double.Parse( cells[ 11 ] ) / 1000.0 ;
 
             return (valve, ParseOrigin(cells), ParseAngleAxis(cells));
         }

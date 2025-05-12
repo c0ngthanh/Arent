@@ -19,12 +19,11 @@ namespace Chiyoda.CAD.Body
       else {
         var impl = body.MainObject.GetComponent<ActuatorControlValveBodyImpl>() ;
         var renderers = impl.MainValve.GetComponentsInChildren<MeshRenderer>();
-        Debug.Log(renderers.Length);
         var material = GetMaterial( body, actuatorControlValve ) ;
         foreach (var render in renderers) {
           render.material = material;
         }
-        impl.ReferenceOperation.GetComponent<MeshRenderer>().material = GetMaterial( body, actuatorControlValve ) ;
+        // impl.A.GetComponent<MeshRenderer>().material = GetMaterial( body, actuatorControlValve ) ;
       }
     }
     
@@ -39,8 +38,12 @@ namespace Chiyoda.CAD.Body
       body.MainObject.transform.localRotation = Quaternion.identity;
 
       var impl = body.MainObject.GetComponent<ActuatorControlValveBodyImpl>();
-      impl.MainValve.transform.localScale = Vector3.one * ModelScale;
-      // impl.ReferenceOperation.transform.localScale = new Vector3( (float)actuatorControlValve.DiaphramLength, (float)actuatorControlValve.DiaphramDiameter, (float)actuatorControlValve.DiaphramDiameter ) * ModelScale;
+      impl.MainValve.transform.localScale = new Vector3((float) actuatorControlValve.Length/2,(float) actuatorControlValve.Diameter,(float) actuatorControlValve.Diameter) * ModelScale;
+      var a_Scale = impl.A.transform.localScale;
+      var D_Scale = impl.D.transform.localScale;
+      impl.A.transform.localScale = new Vector3(a_Scale.x,(float) actuatorControlValve.A_Length*a_Scale.y,a_Scale.z);
+      impl.D.transform.localScale = new Vector3((float)actuatorControlValve.D_Size,D_Scale.y,(float)actuatorControlValve.D_Size);
+      impl.D_Hold.transform.localPosition = new Vector3(impl.D_Hold.transform.localPosition.x, impl.A.transform.localScale.y*2*impl.A_Cylinder.transform.localScale.y, impl.D_Hold.transform.localPosition.z);
     }
   }
 }

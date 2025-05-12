@@ -12,21 +12,38 @@ namespace Chiyoda.CAD.Body
         GameObject mainValve;
 
         [SerializeField]
-        GameObject referenceOperation;
+        GameObject a;
+        [SerializeField]
+        GameObject d;
+        [SerializeField]
+        GameObject d_Hold;
+        [SerializeField]
+        GameObject A_cylinder;
 
-        public GameObject ReferenceOperation
+        public GameObject A
         {
             get
             {
-                return referenceOperation;
+                return a;
             }
 
             set
             {
-                referenceOperation = value;
+                a = value;
             }
         }
+        public GameObject D
+        {
+            get
+            {
+                return d;
+            }
 
+            set
+            {
+                d = value;
+            }
+        }
         public GameObject MainValve
         {
             get
@@ -37,6 +54,30 @@ namespace Chiyoda.CAD.Body
             set
             {
                 mainValve = value;
+            }
+        }
+        public GameObject D_Hold
+        {
+            get
+            {
+                return d_Hold;
+            }
+
+            set
+            {
+                d_Hold = value;
+            }
+        }
+        public GameObject A_Cylinder
+        {
+            get
+            {
+                return A_cylinder;
+            }
+
+            set
+            {
+                A_cylinder = value;
             }
         }
     }

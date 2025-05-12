@@ -21,12 +21,16 @@ namespace Chiyoda.CAD.Model
     private readonly Memento<double> mainValveLength;
     private readonly Memento<double> diaphramLength;
     private readonly Memento<double> diaphramDiameter;
+    private readonly Memento<double> a_Length;
+    private readonly Memento<double> d_Size;
 
     public ActuatorControlValve( Document document ) : base( document )
     {
       mainValveLength = CreateMementoAndSetupValueEvents( 0.0 ) ;
       diaphramLength = CreateMementoAndSetupValueEvents( 0.0 ) ;
       diaphramDiameter = CreateMementoAndSetupValueEvents( 0.0 ) ;
+      a_Length = CreateMementoAndSetupValueEvents( 0.0 ) ;
+      d_Size = CreateMementoAndSetupValueEvents( 0.0 ) ;
 
       ComponentName = "DiaphramControlValve" ;
     }
@@ -45,6 +49,8 @@ namespace Chiyoda.CAD.Model
       mainValveLength.CopyFrom( entity.mainValveLength.Value );
       diaphramLength.CopyFrom( entity.diaphramLength.Value);
       diaphramDiameter.CopyFrom( entity.diaphramDiameter.Value);
+      a_Length.CopyFrom( entity.a_Length.Value);
+      d_Size.CopyFrom( entity.d_Size.Value);
     }
 
     public override void ChangeSizeNpsMm(int connectPointNumber, int newDiameterNpsMm)
@@ -56,6 +62,8 @@ namespace Chiyoda.CAD.Model
       Length *= rate;
       DiaphramLength *= rate;
       DiaphramDiameter *= rate;
+      A_Length *= rate;
+      D_Size *= rate;
       base.ChangeSizeNpsMm(connectPointNumber, newDiameterNpsMm);
     }
 
@@ -98,6 +106,17 @@ namespace Chiyoda.CAD.Model
     {
       get { return diaphramDiameter.Value; }
       set { diaphramDiameter.Value = value ; }
+    }
+
+    public double A_Length
+    {
+      get { return a_Length.Value; }
+      set { a_Length.Value = value ; }
+    }
+    public double D_Size
+    {
+      get { return d_Size.Value; }
+      set { d_Size.Value = value ; }
     }
     
     public override Bounds GetBounds()
