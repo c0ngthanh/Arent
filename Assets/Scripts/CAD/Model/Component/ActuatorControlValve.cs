@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Chiyoda.CAD.Core;
 using Chiyoda.CAD.Topology;
+using MaterialUI;
 using UnityEngine;
 
 
@@ -19,16 +20,12 @@ namespace Chiyoda.CAD.Model
     public ConnectPoint Term1ConnectPoint => GetConnectPoint( (int)ConnectPointType.Term1 ) ;
     public ConnectPoint Term2ConnectPoint => GetConnectPoint( (int)ConnectPointType.Term2 ) ;
     private readonly Memento<double> mainValveLength;
-    private readonly Memento<double> diaphramLength;
-    private readonly Memento<double> diaphramDiameter;
     private readonly Memento<double> a_Length;
     private readonly Memento<double> d_Size;
 
     public ActuatorControlValve( Document document ) : base( document )
     {
       mainValveLength = CreateMementoAndSetupValueEvents( 0.0 ) ;
-      diaphramLength = CreateMementoAndSetupValueEvents( 0.0 ) ;
-      diaphramDiameter = CreateMementoAndSetupValueEvents( 0.0 ) ;
       a_Length = CreateMementoAndSetupValueEvents( 0.0 ) ;
       d_Size = CreateMementoAndSetupValueEvents( 0.0 ) ;
 
@@ -47,8 +44,6 @@ namespace Chiyoda.CAD.Model
 
       var entity = another as ActuatorControlValve;
       mainValveLength.CopyFrom( entity.mainValveLength.Value );
-      diaphramLength.CopyFrom( entity.diaphramLength.Value);
-      diaphramDiameter.CopyFrom( entity.diaphramDiameter.Value);
       a_Length.CopyFrom( entity.a_Length.Value);
       d_Size.CopyFrom( entity.d_Size.Value);
     }
@@ -60,8 +55,6 @@ namespace Chiyoda.CAD.Model
       var afterDiameter = DiameterFactory.FromNpsMm(newDiameterNpsMm).OutsideMeter;
       var rate = afterDiameter / beforeDiameter;
       Length *= rate;
-      DiaphramLength *= rate;
-      DiaphramDiameter *= rate;
       A_Length *= rate;
       D_Size *= rate;
       base.ChangeSizeNpsMm(connectPointNumber, newDiameterNpsMm);
@@ -96,18 +89,6 @@ namespace Chiyoda.CAD.Model
       }
     }
 
-    public double DiaphramLength
-    {
-      get { return diaphramLength.Value; }
-      set { diaphramLength.Value = value ; }
-    }
-    
-    public double DiaphramDiameter
-    {
-      get { return diaphramDiameter.Value; }
-      set { diaphramDiameter.Value = value ; }
-    }
-
     public double A_Length
     {
       get { return a_Length.Value; }
@@ -118,25 +99,24 @@ namespace Chiyoda.CAD.Model
       get { return d_Size.Value; }
       set { d_Size.Value = value ; }
     }
-    
+    private float cylinder_Scale;
     public override Bounds GetBounds()
     {
       var bounds = new Bounds((Vector3)Origin, Vector3.zero);
       bounds.Encapsulate( (Vector3)Term1ConnectPoint.Point ) ;
       bounds.Encapsulate( (Vector3)Term2ConnectPoint.Point ) ;
-      bounds.Encapsulate( (Vector3) ( SecondAxis * DiaphramLength ) ) ;
       
-      var flowRadius = Diameter / 2 ;
+      var flowRadius = Length / 4 ;
       bounds.Encapsulate( (Vector3) (SecondAxis * flowRadius) );
       bounds.Encapsulate( (Vector3) (-SecondAxis * flowRadius) );
+      bounds.Encapsulate( (Vector3) (SecondAxis * (A_Length*Length*2+Math.Max(D_Size/10,0.22))));
+
+      bounds.Encapsulate( (Vector3) (-ThirdAxis * D_Size/10) );
+      bounds.Encapsulate( (Vector3) (ThirdAxis * D_Size/10) );
       bounds.Encapsulate( (Vector3) (ThirdAxis * flowRadius) );
       bounds.Encapsulate( (Vector3) (-ThirdAxis * flowRadius) );
             
-      var diaphramRadius = DiaphramDiameter / 2 ;
-      bounds.Encapsulate( (Vector3) (Axis * diaphramRadius) );
-      bounds.Encapsulate( (Vector3) (-Axis * diaphramRadius) );
-      bounds.Encapsulate( (Vector3) (ThirdAxis * diaphramRadius) );
-      bounds.Encapsulate( (Vector3) (-ThirdAxis * diaphramRadius) );
+      bounds.Encapsulate( (Vector3) (Axis * 0.54) );
       return bounds ;
     }
   }

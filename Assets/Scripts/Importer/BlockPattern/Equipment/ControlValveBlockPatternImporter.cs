@@ -98,7 +98,6 @@ namespace Importer.BlockPattern.Equipment
     {
       var dataSet = PipingPieceDataSet.GetPipingPieceDataSet();
       var bp = BlockPatternFactory.CreateBlockPattern(BlockPatternType.Type.ActuatorControlValve);
-      Debug.Log("BP TYPE: " + bp.Type);
       var instrumentTable = PipingPieceTableFactory.Create(bp.Type, dataSet);
       var (instrument, origin, rot) = instrumentTable.Generate(bp.Document, id, createNozzle: true);
 

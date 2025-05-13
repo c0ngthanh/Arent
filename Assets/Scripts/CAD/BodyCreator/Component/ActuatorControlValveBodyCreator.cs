@@ -38,7 +38,7 @@ namespace Chiyoda.CAD.Body
       body.MainObject.transform.localRotation = Quaternion.identity;
 
       var impl = body.MainObject.GetComponent<ActuatorControlValveBodyImpl>();
-      impl.MainValve.transform.localScale = new Vector3((float) actuatorControlValve.Length/2,(float) actuatorControlValve.Diameter,(float) actuatorControlValve.Diameter) * ModelScale;
+      impl.MainValve.transform.localScale = (float) actuatorControlValve.Length/2 * Vector3.one * ModelScale;
       var a_Scale = impl.A.transform.localScale;
       var D_Scale = impl.D.transform.localScale;
       impl.A.transform.localScale = new Vector3(a_Scale.x,(float) actuatorControlValve.A_Length*a_Scale.y,a_Scale.z);

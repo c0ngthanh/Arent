@@ -110,7 +110,6 @@ namespace Chiyoda.CAD.Body
       }      
 
       var gameObject = BodyPrefabAccessor.Instance().Create(entity);
-      UnityEngine.Debug.Log(gameObject);
       //if (null == gameObject) return null;
       if (null != gameObject)
       {
